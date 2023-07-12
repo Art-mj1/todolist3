@@ -27,6 +27,9 @@ const Logo = styled.div`
     font-size: 25px;
     color: #7c83b9;
   }
+  .design > h5 {
+    margin-right: 40px;
+  }
 `;
 const Header = () => {
   return (

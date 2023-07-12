@@ -4,8 +4,8 @@ import Buttons from "./components/Buttons";
 import Input from "./components/Input";
 import Select from "./components/Select";
 import Header from "./components/Header";
-import ModalBefore from "./components/ModalBefore";
-import ModalDialog from "./components/Modal";
+import FirstModal from "./components/modal/FirstModal";
+import SecondModal from "./components/modal/SecondModal";
 const App = () => {
   return (
     <div className='wrap'>
@@ -14,9 +14,9 @@ const App = () => {
         <Buttons />
         <Input />
       </div>
-      <div>
-        <ModalBefore />
-        <ModalDialog />
+      <div className='main2'>
+        <FirstModal />
+        <SecondModal />
       </div>
       <div>
         <Select />

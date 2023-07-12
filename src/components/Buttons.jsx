@@ -1,140 +1,100 @@
+import Button from "./util/Button";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-
-import { styled } from "styled-components";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
+function ButtonComponent({
+  children,
+  color,
+  bg,
+  primary,
+  negative,
+  onClick,
+  size,
+}) {
+  return (
+    <StbuttonContainer>
+      <h3>Buttons</h3>
+      <h4>Primary Buton</h4>
+      <StPrimaryBox>
+        <Button
+          color='large'
+          bg='large'
+          primary='true'
+          size='large'
+          onClick={() => alert("버튼을 만들어보세요")}>
+          <FontAwesomeIcon icon={faLeaf} className='leaf' />
+          Large Primary Button
+        </Button>
+        <Button color='medium' bg='medium' size='medium'>
+          medium
+        </Button>
+        <Button color='small' bg='small' size='small'>
+          small
+        </Button>
+      </StPrimaryBox>
+      <h4>Negative Buton</h4>
+      <StNegativeBox>
+        <Button
+          color='large'
+          bg='large'
+          negative='true'
+          size='large'
+          onClick={() => prompt("입력하기")}>
+          <FontAwesomeIcon icon={faLeaf} className='leaf' />
+          Large Negative Button
+        </Button>
+        <Button color='medium' bg='medium' size='medium'>
+          medium
+        </Button>
+        <Button color='small' bg='small' size='small'>
+          small
+        </Button>
+      </StNegativeBox>
+    </StbuttonContainer>
+  );
+}
 
-const ButtonStyle = styled.div`
-  padding: 10px;
+export default ButtonComponent;
+
+const StbuttonContainer = styled.div`
   width: 650px;
-  border: 1px solid #ffffff;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   background: #ffffff;
   border-radius: 10px;
-  height: 600px;
   box-shadow: 0px 0px 10px #eee;
-  text-align: center;
-  margin-top: 25px;
-  .buttonsWrap {
+  h3 {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .buttonsWrap > h3 {
-    font-size: 45px;
+    font-size: 35px;
+    padding: 0;
     margin: 0;
-    color: #90b7fd;
-    font-weight: 800;
+    border-bottom: 2px solid #90b7fd;
+    height: 10%;
+    text-align: center;
   }
-  .buttonsWrap > .buttons {
-    width: 100%;
-  }
-  .buttons > h4 {
-    font-size: 30px;
-  }
-  .buttons > h4.border:after {
-    content: "";
-    display: block;
-    width: 300px;
-    border-bottom: 1px solid #90b7fd;
-    margin: 10px auto;
-  }
-  .buttons > .buttonWrap {
-    display: flex;
-    margin-left: 55px;
-  }
-  .buttons > .buttonWrap > .large,
-  .buttons > .buttonWrap > .large1 {
-    background: #90b7fd;
-    font-size: 17px;
-    border: 1px solid #ffffff;
-    color: #ffffff;
-    border-radius: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .buttons > .buttonWrap > .large {
-    width: 250px;
-    height: 101px;
-  }
-  .buttons > .buttonWrap > .large > .leaf,
-  .buttons > .buttonWrap > .large1 > .leaf {
-    margin-right: 10px;
-  }
-  .buttons > .buttonWrap > .large1 {
-    width: 250px;
-    height: 101px;
-  }
-  .buttons > .buttonWrap > .large1 > input {
-    border: none;
-    background: none;
-    height: 100%;
-    color: #ffffff;
-    font-size: 17px;
-    font-weight: 600;
-  }
-  .buttons > .buttonWrap > .medium {
-    height: 101px;
-    width: 160px;
-    border: 1px solid #90b7fd;
-    background: #ffffff;
-    border-radius: 10px;
-  }
-  .buttons > .buttonWrap > .small {
-    height: 101px;
-    width: 130px;
-    border: 1px solid #ffffff;
-    background: #adc2ea;
-    border-radius: 10px;
+  h4 {
+    font-size: 25px;
   }
 `;
-const Buttons = () => {
-  const alert1 = () => {
-    alert("방문해주셔서 감사합니다");
-  };
-  const alert2 = () => {
-    let greeting = prompt("입력하기", "");
-    document.getElementsByClassName("result").innerText = greeting;
-  };
-  return (
-    <ButtonStyle>
-      <div className='buttonsWrap'>
-        <h3>Button</h3>
-        <div className='buttons'>
-          <h4 className='border'>Primary Button</h4>
-          <div className='buttonWrap'>
-            <button className='large' onClick={alert1}>
-              <FontAwesomeIcon icon={faLeaf} className='leaf' />
-              <p>Large Primary Button</p>
-            </button>
-            <button className='medium'>medium</button>
-            <button className='small'>small</button>
-          </div>
-        </div>
-        <div className='buttons'>
-          <h4 className='border' style={{ marginTop: 40 }}>
-            Secondary Button
-          </h4>
-          <div className='buttonWrap'>
-            <div className='large1'>
-              <FontAwesomeIcon icon={faLeaf} className='leaf' />
-              <input
-                type='button'
-                onClick={alert2}
-                value='Large Secondary Button'
-              />
-            </div>
-            <div className='result'></div>
-            <button className='medium'>medium</button>
-            <button className='small'>small</button>
-          </div>
-        </div>
-      </div>
-    </ButtonStyle>
-  );
-};
 
-export default Buttons;
+const StPrimaryBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  .leaf {
+    margin-right: 10px;
+  }
+`;
+
+const StNegativeBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  .leaf {
+    margin-right: 10px;
+  }
+`;

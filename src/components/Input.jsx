@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import useInput from "../hook";
 import { styled } from "styled-components";
 const InputStyle = styled.div`
-  padding: 10px;
   width: 650px;
   border: 1px solid #ffffff;
   background: #ffffff;
@@ -10,7 +9,6 @@ const InputStyle = styled.div`
   height: 600px;
   box-shadow: 0px 0px 10px #eee;
   text-align: center;
-  margin-top: 25px;
   margin-left: 50px;
   .inputWraps {
     display: flex;
@@ -26,9 +24,20 @@ const InputStyle = styled.div`
   }
 `;
 const Input = () => {
-  const [name, setName] = useInput("");
-  const [price, setPrice] = useInput("");
-
+  const [name, setName, resetName] = useInput("");
+  const [price, setPrice, resetPrice] = useState(0);
+  const priceHandler = (event) => {
+    let price = event.target.value;
+    price = Number(price.replaceAll(",", ""));
+    if (isNaN(price)) {
+      setPrice(0);
+    } else {
+      setPrice(price.toLocaleString("ko-KR"));
+    }
+  };
+  const saveHandler = () => {
+    alert(`이름: ${name}\n가격: ${price}`);
+  };
   return (
     <InputStyle>
       <div className='inputs'>
@@ -37,14 +46,14 @@ const Input = () => {
           <div className='inputWrap'>
             <div className='name'>
               <h4>이름</h4>
-              <input type='text' />
+              <input type='text' value={name} onChange={setName} />
             </div>
             <div className='prices'>
               <h4>가격</h4>
-              <input type='text' />
+              <input type='text' value={price} onChange={priceHandler} />
             </div>
           </div>
-          <input type='button' value='저장' />
+          <input type='button' value='저장' onClick={saveHandler} />
         </div>
       </div>
     </InputStyle>
