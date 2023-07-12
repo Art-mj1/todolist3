@@ -13,11 +13,21 @@ const Selects = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  .dropWrap {
+    display: flex;
+    margin: 0 14px 0 14px;
+    border: 5px solid #90b7fd;
+    width: 500px;
+    height: 250px;
+    overflow: hidden;
+  }
   .dropDownContainer {
     width: 160px;
-    margin: 0 auto;
-    height: 500px;
+    margin: 10px auto;
+    height: 400px;
+  }
+  .dropDownContainer:nth-child(1) {
+    position: relative;
   }
   .selectOption {
     margin-bottom: 0.8em;
@@ -25,15 +35,16 @@ const Selects = styled.div`
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
     font-weight: 600;
     font-size: 1.3rem;
-    color: #3faffa;
-    background: #ffffff;
+    color: #ffffff;
+    background: #90b7fd;
     width: 160px;
+    border: none;
   }
   .lists {
     padding: 0;
     margin: 0;
     background: #ffffff;
-    border: 2px solid #e5e5e5;
+    border: 2px solid #adc2ea;
     box-sizing: border-box;
     color: #3faffa;
     font-size: 1.3rem;
@@ -41,6 +52,9 @@ const Selects = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
+    width: 160px;
+    height: 330px;
+    position: absolute;
     &:first-child {
       padding-top: 0.2em;
     }
@@ -53,6 +67,10 @@ const Selects = styled.div`
   .lists > button {
     border: none;
     background: none;
+    height: 100px;
+  }
+  #firstselectt {
+    overflow: visible;
   }
 `;
 
@@ -85,6 +103,7 @@ export default function Select() {
   const selectBoxes = [
     {
       name: "select1",
+      id: "firstselect",
       options: [
         { key: "리액트", value: "리액트" },
         { key: "자바", value: "자바" },
@@ -94,6 +113,7 @@ export default function Select() {
     },
     {
       name: "select2",
+      id: "secondselect",
       options: [
         { key: "리액트", value: "리액트" },
         { key: "자바", value: "자바" },
@@ -105,27 +125,29 @@ export default function Select() {
 
   return (
     <Selects>
-      {selectBoxes.map((selectBox) => (
-        <div key={selectBox.name} className='dropDownContainer'>
-          <button
-            className='selectOption'
-            onClick={() => onClickOptionsHandler(selectBox.name)}>
-            {content[selectBox.name] || "리액트"}
-          </button>
-          {options[selectBox.name] && (
-            <div className='lists'>
-              {selectBox.options.map((item) => (
-                <button
-                  key={item.key}
-                  className={"list"}
-                  onClick={() => onClickHandler(selectBox.name, item.value)}>
-                  {item.value}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+      <div className='dropWrap'>
+        {selectBoxes.map((selectBox) => (
+          <div key={selectBox.name} className='dropDownContainer'>
+            <button
+              className='selectOption'
+              onClick={() => onClickOptionsHandler(selectBox.name)}>
+              {content[selectBox.name] || "리액트"}
+            </button>
+            {options[selectBox.name] && (
+              <div className='lists' id={selectBox.id}>
+                {selectBox.options.map((item) => (
+                  <button
+                    key={item.key}
+                    className={"list"}
+                    onClick={() => onClickHandler(selectBox.name, item.value)}>
+                    {item.value}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </Selects>
   );
 }

@@ -10,17 +10,61 @@ const InputStyle = styled.div`
   box-shadow: 0px 0px 10px #eee;
   text-align: center;
   margin-left: 50px;
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .inputs > h3 {
+    width: 100%;
+    font-size: 35px;
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid #90b7fd;
+    height: 10%;
+    text-align: center;
+  }
   .inputWraps {
     display: flex;
+    height: 76%;
+    align-items: center;
+    justify-content: center;
   }
   .inputWrap {
     display: flex;
   }
   .name {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .prices {
+    margin-left: 10px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .inputWrap > button {
+    width: 70px;
+    height: 35px;
+    background: #90b7fd;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    border-radius: 20px;
+  }
+  .inputStyle {
+    border: 1px solid #adc2ea;
+    border-radius: 20px;
+    width: 150px;
+    height: 35px;
+    margin: 0 5px 0 5px;
+  }
+  h4 {
+    font-size: 20px;
   }
 `;
 const Input = () => {
@@ -46,11 +90,21 @@ const Input = () => {
           <div className='inputWrap'>
             <div className='name'>
               <h4>이름</h4>
-              <input type='text' value={name} onChange={setName} />
+              <input
+                type='text'
+                value={name}
+                onChange={setName}
+                className='inputStyle'
+              />
             </div>
             <div className='prices'>
               <h4>가격</h4>
-              <input type='text' value={price} onChange={priceHandler} />
+              <input
+                type='text'
+                value={price}
+                onChange={priceHandler}
+                className='inputStyle'
+              />
             </div>
           </div>
           <input type='button' value='저장' onClick={saveHandler} />

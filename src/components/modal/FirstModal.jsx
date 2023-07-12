@@ -19,6 +19,11 @@ const ModalBefores = styled.div`
     font-size: 50px;
     text-align: center;
   }
+  .modalBefore .open {
+    width: 165px;
+    height: 53px;
+    border: none;
+  }
   .modalBefore > h4 {
     font-size: 40px;
     color: #90b7fd;
@@ -36,8 +41,16 @@ const ModalBefores = styled.div`
   .modalBefore .buttons {
     display: flex;
   }
-  .modalBefore .button {
-    background: #;
+  .modalBefore button {
+    background: #90b7fd;
+    color: #ffffff;
+    font-size: 14px;
+    border: none;
+    width: 70px;
+    height: 30px;
+  }
+  .modalBefore .confirm {
+    margin-left: 10px;
   }
 `;
 export default function FirstModal({ children }) {
@@ -47,7 +60,9 @@ export default function FirstModal({ children }) {
     <ModalBefores>
       <div className='modalBefore' onClick={modalBackdropHandler}>
         <h4>Modal</h4>
-        <button onClick={() => setShow(true)}>Open</button>
+        <button className='open' onClick={() => setShow(true)}>
+          Open
+        </button>
         {show && (
           <ModalDialog isOpen={show} onClose={() => setShow(true)}>
             <div>외부영역을 눌러도 닫히지 않음.</div>
@@ -58,7 +73,8 @@ export default function FirstModal({ children }) {
                 onClick={() => setShow(true)}
                 color='rgb(0, 0, 0)'
                 bg='rgb(200, 19, 196)'
-                size='small'>
+                size='small'
+                className='confirm'>
                 확인
               </button>
             </div>
