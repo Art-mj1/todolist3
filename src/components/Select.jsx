@@ -74,80 +74,51 @@ const Selects = styled.div`
   }
 `;
 
+import React, { useState } from "react";
+
 export default function Select() {
-  const [options, setOptions] = useState({
-    select1: false,
-    select2: false,
-    // 추가적인 selectbox 상태 추가 가능
-  });
-
-  const [content, setContent] = useState({
-    select1: "",
-    select2: "",
-    // 추가적인 selectbox 값 상태 추가 가능
-  });
-
-  const onClickOptionsHandler = (selectName) => {
-    setOptions((prevOptions) => ({
-      ...prevOptions,
-      [selectName]: !prevOptions[selectName],
-    }));
-  };
-  const onClickHandler = (selectName, value) => {
-    setContent({
-      ...content,
-      [selectName]: value,
-    });
+  const selectBox = {
+    name: "select1",
+    id: "firstselect",
+    options: [
+      { key: "리액트", value: "리액트" },
+      { key: "자바", value: "자바" },
+      { key: "스프링", value: "스프링" },
+      { key: "리액트네이티브", value: "리액트네이티브" },
+    ],
   };
 
-  const selectBoxes = [
-    {
-      name: "select1",
-      id: "firstselect",
-      options: [
-        { key: "리액트", value: "리액트" },
-        { key: "자바", value: "자바" },
-        { key: "스프링", value: "스프링" },
-        { key: "리액트네이티브", value: "리액트네이티브" },
-      ],
-    },
-    {
-      name: "select2",
-      id: "secondselect",
-      options: [
-        { key: "리액트", value: "리액트" },
-        { key: "자바", value: "자바" },
-        { key: "스프링", value: "스프링" },
-        { key: "리액트네이티브", value: "리액트네이티브" },
-      ],
-    },
-  ];
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("");
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const selectOption = (value) => {
+    setSelected(value);
+    setIsOpen(false);
+  };
 
   return (
-    <Selects>
-      <div className='dropWrap'>
-        {selectBoxes.map((selectBox) => (
-          <div key={selectBox.name} className='dropDownContainer'>
-            <button
-              className='selectOption'
-              onClick={() => onClickOptionsHandler(selectBox.name)}>
-              {content[selectBox.name] || "리액트"}
-            </button>
-            {options[selectBox.name] && (
-              <div className='lists' id={selectBox.id}>
-                {selectBox.options.map((item) => (
-                  <button
-                    key={item.key}
-                    className={"list"}
-                    onClick={() => onClickHandler(selectBox.name, item.value)}>
-                    {item.value}
-                  </button>
-                ))}
-              </div>
-            )}
+    <div className='dropWrap'>
+      <div key={selectBox.name} className='dropDownContainer'>
+        <button className='selectOption' onClick={toggleDropdown}>
+          {selected || "리액트"}
+        </button>
+        {isOpen && (
+          <div className='lists' id={selectBox.id}>
+            {selectBox.options.map((item) => (
+              <button
+                key={item.key}
+                className='list'
+                onClick={() => selectOption(item.value)}>
+                {item.value}
+              </button>
+            ))}
           </div>
-        ))}
+        )}
       </div>
-    </Selects>
+    </div>
   );
 }
