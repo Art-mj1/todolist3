@@ -35,10 +35,10 @@ const Selects = styled.div`
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
     font-weight: 600;
     font-size: 1.3rem;
-    color: #ffffff;
-    background: #90b7fd;
+    color: #3faffa;
+    background: #ffffff;
     width: 160px;
-    border: none;
+    border: 2px solid #90b7fd;
   }
   .lists {
     padding: 0;
@@ -75,71 +75,54 @@ const Selects = styled.div`
 `;
 
 export default function Select() {
-  const [options, setOptions] = useState({
-    select1: false,
-    select2: false,
-    // 추가적인 selectbox 상태 추가 가능
-  });
+  const options = [
+    { key: "리액트", value: "리액트" },
+    { key: "자바", value: "자바" },
+    { key: "스프링", value: "스프링" },
+    { key: "리액트네이티브", value: "리액트네이티브" },
+  ];
 
-  const [content, setContent] = useState({
-    select1: "",
-    select2: "",
-    // 추가적인 selectbox 값 상태 추가 가능
-  });
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [selected1, setSelected1] = useState("");
 
-  const onClickOptionsHandler = (selectName) => {
-    setOptions((prevOptions) => ({
-      ...prevOptions,
-      [selectName]: !prevOptions[selectName],
-    }));
-  };
-  const onClickHandler = (selectName, value) => {
-    setContent({
-      ...content,
-      [selectName]: value,
-    });
-  };
+  const [isOpen2, setIsOpen2] = useState(false);
+  const [selected2, setSelected2] = useState("");
 
-  const selectBoxes = [
+  const selectBoxStates = [
     {
-      name: "select1",
-      id: "firstselect",
-      options: [
-        { key: "리액트", value: "리액트" },
-        { key: "자바", value: "자바" },
-        { key: "스프링", value: "스프링" },
-        { key: "리액트네이티브", value: "리액트네이티브" },
-      ],
+      isOpen: isOpen1,
+      selected: selected1,
+      setIsOpen: setIsOpen1,
+      setSelected: setSelected1,
     },
     {
-      name: "select2",
-      id: "secondselect",
-      options: [
-        { key: "리액트", value: "리액트" },
-        { key: "자바", value: "자바" },
-        { key: "스프링", value: "스프링" },
-        { key: "리액트네이티브", value: "리액트네이티브" },
-      ],
+      isOpen: isOpen2,
+      selected: selected2,
+      setIsOpen: setIsOpen2,
+      setSelected: setSelected2,
     },
   ];
 
   return (
     <Selects>
       <div className='dropWrap'>
-        {selectBoxes.map((selectBox) => (
-          <div key={selectBox.name} className='dropDownContainer'>
+        {selectBoxStates.map((selectBox) => (
+          <div key={selectBox.id} className='dropDownContainer'>
             <button
               className='selectOption'
-              onClick={() => onClickOptionsHandler(selectBox.name)}>
-              {content[selectBox.name] || "리액트"}
+              onClick={() => selectBox.setIsOpen(!selectBox.isOpen)}>
+              {selectBox.selected || "리액트"}
             </button>
-            {options[selectBox.name] && (
+            {selectBox.isOpen && (
               <div className='lists' id={selectBox.id}>
-                {selectBox.options.map((item) => (
+                {options.map((item) => (
                   <button
                     key={item.key}
-                    className={"list"}
-                    onClick={() => onClickHandler(selectBox.name, item.value)}>
+                    className='list'
+                    onClick={() => {
+                      selectBox.setSelected(item.value);
+                      selectBox.setIsOpen(false);
+                    }}>
                     {item.value}
                   </button>
                 ))}

@@ -47,7 +47,7 @@ const InputStyle = styled.div`
     align-items: center;
     justify-content: center;
   }
-  .inputWrap > button {
+  .inputWraps > input {
     width: 70px;
     height: 35px;
     background: #90b7fd;
